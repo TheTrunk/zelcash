@@ -21,13 +21,13 @@ namespace libsnark {
 typedef std::vector<bool> bit_vector;
 
 /// returns ceil(log2(n)), so 1ul<<log2(n) is the smallest power of 2, that is not less than n
-uint64_t log2(uint64_t n);
+size_t log2(size_t n);
 
-inline uint64_t exp2(uint64_t k) { return 1ull << k; }
+inline size_t exp2(size_t k) { return 1ul << k; }
 
-uint64_t bitreverse(uint64_t n, const uint64_t l);
-bit_vector int_list_to_bits(const std::initializer_list<uint64_t> &l, const uint64_t wordsize);
-int64_t div_ceil(int64_t x, int64_t y);
+size_t bitreverse(size_t n, const size_t l);
+bit_vector int_list_to_bits(const std::initializer_list<unsigned long> &l, const size_t wordsize);
+long long div_ceil(long long x, long long y);
 
 bool is_little_endian();
 
@@ -46,13 +46,8 @@ void UNUSED(Types&&...) {}
 void serialize_bit_vector(std::ostream &out, const bit_vector &v);
 void deserialize_bit_vector(std::istream &in, bit_vector &v);
 
-#ifdef __APPLE__
 template<typename T>
-unsigned long size_in_bits(const std::vector<T> &v);
-#else
-template<typename T>
-uint64_t size_in_bits(const std::vector<T> &v);
-#endif
+size_t size_in_bits(const std::vector<T> &v);
 
 #define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
 
