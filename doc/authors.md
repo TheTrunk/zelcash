@@ -1,12 +1,5 @@
 Zelcash Contributors
 ==================
-Extra
-TheTrunk
-Scribbles
-Lumi
-
-Zcash Contributors
-==================
 
 Jack Grigg (558)
 Simon Liu (286)
