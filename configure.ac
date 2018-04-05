@@ -454,9 +454,10 @@ if test x$use_hardening != xno; then
     HARDENED_CPPFLAGS="$HARDENED_CPPFLAGS -D_FORTIFY_SOURCE=2"
   ],[AC_MSG_ERROR(Cannot enable -D_FORTIFY_SOURCE=2)])
 
+  AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_ERROR(Cannot enable RELRO)])
+  AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_ERROR(Cannot enable BIND_NOW)])
+
   if test x$TARGET_OS != xwindows; then
-    AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_ERROR(Cannot enable RELRO)])
-    AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_ERROR(Cannot enable BIND_NOW)])
     # All windows code is PIC, forcing it on just adds useless compile warnings
     AX_CHECK_COMPILE_FLAG([-fPIE],[PIE_FLAGS="-fPIE"],[AC_MSG_ERROR(Cannot enable -fPIE)])
     AX_CHECK_LINK_FLAG([[-pie]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -pie"],[AC_MSG_ERROR(Cannot enable -pie)])
@@ -566,7 +567,7 @@ fi
 if test x$use_boost = xyes; then
 
 dnl Check for boost libs
-dnl We need Boost >= 1.62 to fix a potential security bug (https://github.com/zcash/zcash/issues/1241)
+dnl We need Boost >= 1.62 to fix a potential security bug (https://github.com/zelcash/zelcash/issues/1241)
 AX_BOOST_BASE([1.62])
 AX_BOOST_SYSTEM
 AX_BOOST_FILESYSTEM
@@ -861,7 +862,7 @@ AC_SUBST(GMPXX_LIBS)
 AC_SUBST(LIBSNARK_DEPINST)
 AC_SUBST(LIBZELCASH_LIBS)
 AC_SUBST(PROTON_LIBS)
-AC_CONFIG_FILES([Makefile src/Makefile doc/man/Makefile src/test/buildenv.py])
+AC_CONFIG_FILES([Makefile src/Makefile doc/man/Makefile share/setup.nsi src/test/buildenv.py])
 AC_CONFIG_FILES([qa/pull-tester/run-bitcoind-for-test.sh],[chmod +x qa/pull-tester/run-bitcoind-for-test.sh])
 AC_CONFIG_FILES([qa/pull-tester/tests-config.sh],[chmod +x qa/pull-tester/tests-config.sh])
 
