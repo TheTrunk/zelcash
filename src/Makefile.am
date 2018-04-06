@@ -424,6 +424,9 @@ zelcashd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 zelcashd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 zelcashd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
+if TARGET_WINDOWS
+zelcashd_SOURCES += bitcoind-res.rc
+endif
 
 zelcashd_LDADD = \
   $(LIBBITCOIN_SERVER) \
@@ -465,6 +468,9 @@ zelcash_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 zelcash_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 zelcash_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
+if TARGET_WINDOWS
+zelcash_cli_SOURCES += bitcoin-cli-res.rc
+endif
 
 zelcash_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
@@ -486,6 +492,9 @@ zelcash_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 zelcash_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 zelcash_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
+if TARGET_WINDOWS
+zelcash_tx_SOURCES += bitcoin-tx-res.rc
+endif
 
 # FIXME: Is libzelcash needed for zelcash_tx?
 zelcash_tx_LDADD = \
@@ -518,8 +527,11 @@ libzelcash_a_SOURCES = \
   zelcash/circuit/prfs.tcc \
   zelcash/circuit/utils.tcc
 
-libzelcash_a_CPPFLAGS = -DMULTICORE -fopenmp -fPIC -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DBOOST_SPIRIT_THREADSAFE -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS $(HARDENED_CPPFLAGS) -pipe -O1 -g -Wstack-protector -fstack-protector-all -fPIE -fvisibility=hidden -DSTATIC $(BITCOIN_INCLUDES)
-
+if HAVE_OPENMP
+libzelcash_a_CPPFLAGS = -DMULTICORE -fopenmp
+endif
+libzelcash_a_CPPFLAGS := $(libzelcash_a_CPPFLAGS) -fPIC -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DBOOST_SPIRIT_THREADSAFE -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS $(HARDENED_CPPFLAGS) -pipe -O1 -g -Wstack-protector -fstack-protector-all -fPIE -fvisibility=hidden -DSTATIC $(BITCOIN_INCLUDES)
+ 
 libzelcash_a_CXXFLAGS = $(HARDENED_CXXFLAGS) -fwrapv -fno-strict-aliasing
 
 libzelcash_a_LDFLAGS = $(HARDENED_LDFLAGS)

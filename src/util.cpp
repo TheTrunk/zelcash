@@ -444,8 +444,20 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Zelcash
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Zelcash
     // Mac: ~/Library/Application Support/Zelcash
     // Unix: ~/.zelcash
+#ifdef WIN32
+    // Windows
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Zelcash";
+#else
+    fs::path pathRet;
+    char* pszHome = getenv("HOME");
+    if (pszHome == NULL || strlen(pszHome) == 0)
+        pathRet = fs::path("/");
+    else
+        pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
     pathRet /= "Library/Application Support";
@@ -468,8 +480,20 @@ static boost::filesystem::path ZC_GetBaseParamsDir()
     // Copied from GetDefaultDataDir and adapter for zcash params.
 
     namespace fs = boost::filesystem;
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\ZcashParams
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\ZcashParams
     // Mac: ~/Library/Application Support/ZcashParams
     // Unix: ~/.zcash-params
+#ifdef WIN32
+    // Windows
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "ZcashParams";
+#else
+    fs::path pathRet;
+    char* pszHome = getenv("HOME");
+    if (pszHome == NULL || strlen(pszHome) == 0)
+        pathRet = fs::path("/");
+    else
+        pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
     pathRet /= "Library/Application Support";
@@ -693,7 +717,16 @@ int RaiseFileDescriptorLimit(int nMinFD) {
  * it is advisory, and the range specified in the arguments will never contain live data
  */
 void AllocateFileRange(FILE *file, unsigned int offset, unsigned int length) {
-#if defined(MAC_OSX)
+#if defined(WIN32)
+    // Windows-specific version
+    HANDLE hFile = (HANDLE)_get_osfhandle(_fileno(file));
+    LARGE_INTEGER nFileSize;
+    int64_t nEndPos = (int64_t)offset + length;
+    nFileSize.u.LowPart = nEndPos & 0xFFFFFFFF;
+    nFileSize.u.HighPart = nEndPos >> 32;
+    SetFilePointerEx(hFile, nFileSize, 0, FILE_BEGIN);
+    SetEndOfFile(hFile);
+#elif defined(MAC_OSX)
     // OSX specific version
     fstore_t fst;
     fst.fst_flags = F_ALLOCATECONTIG;
@@ -828,6 +861,18 @@ void SetupEnvironment()
     // boost::filesystem::path, which is then used to explicitly imbue the path.
     std::locale loc = boost::filesystem::path::imbue(std::locale::classic());
     boost::filesystem::path::imbue(loc);
+}
+
+bool SetupNetworking()
+{
+#ifdef WIN32
+    // Initialize Windows Sockets
+    WSADATA wsadata;
+    int ret = WSAStartup(MAKEWORD(2,2), &wsadata);
+    if (ret != NO_ERROR || LOBYTE(wsadata.wVersion ) != 2 || HIBYTE(wsadata.wVersion) != 2)
+        return false;
+#endif
+    return true;
 }
 
 void SetThreadPriority(int nPriority)

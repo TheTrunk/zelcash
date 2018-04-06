@@ -29,6 +29,7 @@
 #include <winsock2.h>     // Must be included before mswsock.h and windows.h
 
 #include <mswsock.h>
+#include <windows.h>
 #include <ws2tcpip.h>
 #else
 #include <fcntl.h>

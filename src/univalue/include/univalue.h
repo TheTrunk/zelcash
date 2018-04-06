@@ -25,6 +25,9 @@ public:
         typ = initialType;
         val = initialStr;
     }
+    UniValue(size_t val_) {
+        setInt(val_);
+    }
     UniValue(uint64_t val_) {
         setInt(val_);
     }
@@ -54,6 +57,7 @@ public:
     bool setNull();
     bool setBool(bool val);
     bool setNumStr(const std::string& val);
+    bool setInt(size_t val_);
     bool setInt(uint64_t val);
     bool setInt(int64_t val);
     bool setInt(int val_) { return setInt((int64_t)val_); }
@@ -86,6 +90,10 @@ public:
     bool push_back(const UniValue& val);
     bool push_back(const std::string& val_) {
         UniValue tmpVal(VSTR, val_);
+        return push_back(tmpVal);
+    }
+    bool push_back(size_t val_) {
+        UniValue tmpVal(val_);
         return push_back(tmpVal);
     }
     bool push_back(const char *val_) {
@@ -180,6 +188,13 @@ static inline std::pair<std::string,UniValue> Pair(const char *cKey, const char 
 {
     std::string key(cKey);
     UniValue uVal(cVal);
+    return std::make_pair(key, uVal);
+}
+
+static inline std::pair<std::string,UniValue> Pair(const char *cKey, size_t sizeVal)
+{
+    std::string key(cKey);
+    UniValue uVal(sizeVal);
     return std::make_pair(key, uVal);
 }
 
