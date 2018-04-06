@@ -230,9 +230,6 @@ case $os in
 	-ptx*)
 		basic_machine=`echo $1 | sed -e 's/86-.*/86-sequent/'`
 		;;
-	-windowsnt*)
-		os=`echo $os | sed -e 's/windowsnt/winnt/'`
-		;;
 	-psos*)
 		os=-psos
 		;;
@@ -1414,7 +1411,7 @@ case $os in
 		os=`echo $os | sed -e 's|nto|nto-qnx|'`
 		;;
 	-sim | -es1800* | -hms* | -xray | -os68k* | -none* | -v88r* \
-	      | -windows* | -osx | -abug | -netware* | -os9* | -beos* | -haiku* \
+	      | -osx | -abug | -netware* | -os9* | -beos* | -haiku* \
 	      | -macos* | -mpw* | -magic* | -mmixware* | -mon960* | -lnews*)
 		;;
 	-mac*)

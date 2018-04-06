@@ -744,11 +744,7 @@ static void TorControlThread()
 void StartTorControl(boost::thread_group& threadGroup, CScheduler& scheduler)
 {
     assert(!gBase);
-#ifdef WIN32
-    evthread_use_windows_threads();
-#else
-    evthread_use_pthreads();
-#endif
+
     gBase = event_base_new();
     if (!gBase) {
         LogPrintf("tor: Unable to create event_base\n");

@@ -1808,10 +1808,6 @@ public:
         delete pnodeLocalHost;
         pnodeLocalHost = NULL;
 
-#ifdef WIN32
-        // Shutdown Windows Sockets
-        WSACleanup();
-#endif
     }
 }
 instance_of_cnetcleanup;
