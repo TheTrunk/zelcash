@@ -446,7 +446,7 @@ boost::filesystem::path GetDefaultDataDir()
     namespace fs = boost::filesystem;
     // Windows < Vista: C:\Documents and Settings\Username\Application Data\Zelcash
     // Windows >= Vista: C:\Users\Username\AppData\Roaming\Zelcash
-    // Mac: ~/Library/Application Support/Zelcash
+    // Mac: ~/Library/Application Support/zelcash
     // Unix: ~/.zelcash
 #ifdef WIN32
     // Windows
@@ -462,7 +462,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     TryCreateDirectory(pathRet);
-    return pathRet / "Zelcash";
+    return pathRet / "zelcash";
 #else
     // Unix
     return pathRet / ".zelcash";
