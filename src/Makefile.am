@@ -23,8 +23,8 @@ BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
 BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
 
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
-BITCOIN_INCLUDES += -I$(srcdir)/snark
-BITCOIN_INCLUDES += -I$(srcdir)/snark/libsnark
+BITCOIN_INCLUDES += -I$(srcdir)/snark/build/include
+BITCOIN_INCLUDES += -I$(srcdir)/snark/build/include/libsnark
 BITCOIN_INCLUDES += -I$(srcdir)/univalue/include
 
 LIBBITCOIN_SERVER=libbitcoin_server.a
