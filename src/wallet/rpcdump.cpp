@@ -482,7 +482,7 @@ UniValue dumpwallet_impl(const UniValue& params, bool fHelp, bool fDumpZKeys)
     if (clean.compare(unclean) != 0) {
         throw JSONRPCError(RPC_WALLET_ERROR, strprintf("Filename is invalid as only alphanumeric characters are allowed.  Try '%s' instead.", clean));
     } */
-    boost::filesystem::path exportfilepath = exportdir
+    boost::filesystem::path exportfilepath = exportdir / params[0].get_str();
 
     if (boost::filesystem::exists(exportfilepath)) {
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Cannot overwrite existing file " + exportfilepath.string());
