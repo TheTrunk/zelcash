@@ -66,8 +66,8 @@ unsigned int DigishieldCalculateNextWorkRequired(arith_uint256 bnAvg,
 
     if (nActualTimespan < params.DigishieldMinActualTimespan())
         nActualTimespan = params.DigishieldMinActualTimespan();
-    if (nActualTimespan > params.DigishieldMinActualTimespan())
-        nActualTimespan = params.DigishieldMinActualTimespan();
+    if (nActualTimespan > params.DigishieldMaxActualTimespan())
+        nActualTimespan = params.DigishieldMaxActualTimespan();
 
     // Retarget
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
