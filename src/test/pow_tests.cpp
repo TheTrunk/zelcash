@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(get_next_work)
     arith_uint256 bnAvg;
     bnAvg.SetCompact(0x1d00ffff);
     BOOST_CHECK_EQUAL(0x1d011998,
-                      CalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
+                      DigishieldCalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
 }
 
 /* Test the constraint on the upper bound for next work */
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_pow_limit)
     arith_uint256 bnAvg;
     bnAvg.SetCompact(0x1f07ffff);
     BOOST_CHECK_EQUAL(0x1f07ffff,
-                      CalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
+                      DigishieldCalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
 }
 
 /* Test the constraint on the lower bound for actual time taken */
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_lower_limit_actual)
     arith_uint256 bnAvg;
     bnAvg.SetCompact(0x1c05a3f4);
     BOOST_CHECK_EQUAL(0x1c04bceb,
-                      CalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
+                      DigishieldCalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
 }
 
 /* Test the constraint on the upper bound for actual time taken */
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_upper_limit_actual)
     arith_uint256 bnAvg;
     bnAvg.SetCompact(0x1c387f6f);
     BOOST_CHECK_EQUAL(0x1c4a93bb,
-                      CalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
+                      DigishieldCalculateNextWorkRequired(bnAvg, nThisTime, nLastRetargetTime, params));
 }
 
 BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
@@ -95,17 +95,19 @@ BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
 
 BOOST_AUTO_TEST_CASE(LWMACalculateNextWorkRequired_test)
 {
-    const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
+    SelectParams(CBaseChainParams::MAIN);
+    const Consensus::Params& params = Params().GetConsensus();
+
     std::vector<CBlockIndex> blocks(50);
     for (int i = 0; i < 50; i++) {
         blocks[i].pprev = i ? &blocks[i - 1] : nullptr;
         blocks[i].nHeight = i;
-        blocks[i].nTime = 1269211443 + i * chainParams->GetConsensus().nPowTargetSpacing;
+        blocks[i].nTime = 1269211443 + i * params.nPowTargetSpacing;
         blocks[i].nBits = 0x1d00ffff;
         blocks[i].nChainWork = i ? blocks[i - 1].nChainWork + GetBlockProof(blocks[i - 1]) : arith_uint256(0);
     }
 
-    int bits = LWMACalculateNextWorkRequired(&blocks.back(), chainParams->GetConsensus());
+    int bits = LWMACalculateNextWorkRequired(&blocks.back(), params);
     BOOST_CHECK_EQUAL(bits, 0x1d010326);
 }
 

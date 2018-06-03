@@ -93,9 +93,9 @@ public:
         consensus.nDigishieldMaxAdjustDown = 32; // 32% adjustment down
         consensus.nDigishieldMaxAdjustUp = 16; // 16% adjustment up
         consensus.nPowTargetSpacing = 2 * 60;
-        consensus.zawyLWMAHeight = 100000 //TODO
+        consensus.zawyLWMAHeight = 100000; //TODO
         consensus.nZawyLWMAAveragingWindow = 45;
-        consensus.nZawyLWMAAjustedWeight = 13632;
+        consensus.nZawyLWMAAdjustedWeight = 13632;
         /**
          * The message start string should be awesome! ⓩ❤
          */
@@ -187,9 +187,9 @@ public:
         consensus.nDigishieldMaxAdjustDown = 32; // 32% adjustment down
         consensus.nDigishieldMaxAdjustUp = 16; // 16% adjustment up
         consensus.nPowTargetSpacing = 2 * 60;
-        consensus.zawyLWMAHeight = 5100 //TODO
+        consensus.zawyLWMAHeight = 5100; //TODO
         consensus.nZawyLWMAAveragingWindow = 45;
-        consensus.nZawyLWMAAjustedWeight = 13632;
+        consensus.nZawyLWMAAdjustedWeight = 13632;
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0x1a;
         pchMessageStart[2] = 0xf9;
@@ -274,9 +274,9 @@ public:
         consensus.nDigishieldMaxAdjustDown = 0; // Turn off adjustment down
         consensus.nDigishieldMaxAdjustUp = 0; // Turn off adjustment up
         consensus.nPowTargetSpacing = 2 * 60;
-        consensus.zawyLWMAHeight = 10 //TODO
+        consensus.zawyLWMAHeight = 10; //TODO
         consensus.nZawyLWMAAveragingWindow = 45;
-        consensus.nZawyLWMAAjustedWeight = 13632;
+        consensus.nZawyLWMAAdjustedWeight = 13632;
 
         pchMessageStart[0] = 0xaa;
         pchMessageStart[1] = 0xe8;

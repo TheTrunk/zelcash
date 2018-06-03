@@ -45,10 +45,11 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     arith_uint256 bnAvg {bnTot / params.nDigishieldAveragingWindow};
     
     //Difficulty algo
+    int nHeight = pindexLast->nHeight + 1;
     if (nHeight < params.zawyLWMAHeight) {
         return DigishieldCalculateNextWorkRequired(bnAvg, pindexLast->GetMedianTimePast(), pindexFirst->GetMedianTimePast(), params);
     } else {
-        return LWMACalculateGetNextWorkRequired(pindexLast, params);
+        return LWMACalculateNextWorkRequired(pindexLast, params);
     }
 }
 
@@ -78,7 +79,7 @@ unsigned int DigishieldCalculateNextWorkRequired(arith_uint256 bnAvg,
         bnNew = bnPowLimit;
 
     /// debug print
-    LogPrint("pow", "GetNextWorkRequired RETARGET\n");
+    LogPrint("pow", "GetNextWorkRequired RETARGET Digishield\n");
     LogPrint("pow", "params.DigishieldAveragingWindowTimespan() = %d    nActualTimespan = %d\n", params.DigishieldAveragingWindowTimespan(), nActualTimespan);
     LogPrint("pow", "Current average: %08x  %s\n", bnAvg.GetCompact(), bnAvg.ToString());
     LogPrint("pow", "After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString());
@@ -88,13 +89,10 @@ unsigned int DigishieldCalculateNextWorkRequired(arith_uint256 bnAvg,
 
 unsigned int LWMACalculateNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params)
 {
-    if (params.fPowNoRetargeting) {
-        return pindexLast->nBits;
-    }
 
     const int T = params.nPowTargetSpacing;
     const int N = params.nZawyLWMAAveragingWindow;
-    const int k = params.nZawyLWMAAjustedWeight;
+    const int k = params.nZawyLWMAAdjustedWeight;
     const int height = pindexLast->nHeight + 1;
     assert(height > N);
 
@@ -122,11 +120,15 @@ unsigned int LWMACalculateNextWorkRequired(const CBlockIndex* pindexLast, const 
         t = N * k / 3;
     }
 
-    const arith_uint256 pow_limit = UintToArith256(params.PowLimit(true));
+    const arith_uint256 pow_limit = UintToArith256(params.powLimit);
     arith_uint256 next_target = t * sum_target;
     if (next_target > pow_limit) {
         next_target = pow_limit;
     }
+
+    /// debug print
+    LogPrint("pow", "GetNextWorkRequired RETARGET LWMA\n");
+    LogPrint("pow", "After:  %08x  %s\n", next_target.GetCompact(), next_target.ToString());
 
     return next_target.GetCompact();
 }
