@@ -19,7 +19,7 @@
 #ifdef ENABLE_RUST
 #include "librustzcash.h"
 #endif // ENABLE_RUST
-extern uint32_t USED_ALGO, ALGO_EQUIHASH;
+
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
