@@ -113,7 +113,7 @@ public:
         nEquihashN = N;
         nEquihashK = K;
         //equihash_endblock = 100000 // change 
-        newalgo_startblock = 90000 //change
+        newalgo_startblock = 90000; //change
 
         genesis = CreateGenesisBlock(
             1516980000,
@@ -203,7 +203,7 @@ public:
         nEquihashN = N;
         nEquihashK = K;
         //equihash_endblock = 10000 // change 
-        newalgo_startblock = 9000 //change
+        newalgo_startblock = 6000; //change
 
         genesis = CreateGenesisBlock(
             1521043405,
@@ -289,7 +289,7 @@ public:
         nEquihashN = N;
         nEquihashK = K;
         //equihash_endblock = 10 // change 
-        newalgo_startblock = 1 //change
+        newalgo_startblock = 1; //change
 
         genesis = CreateGenesisBlock(
             1296688602,

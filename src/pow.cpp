@@ -83,14 +83,16 @@ unsigned int CalculateNextWorkRequired(arith_uint256 bnAvg,
 
 bool CheckEquihashSolution(const CBlockHeader *pblock, const CChainParams& params)
 {
-    int nHeight = chainActive.Height();
+    const CBlockIndex *pindex;
+    unsigned int nHeight = pindex->nHeight;
     if (nHeight == -1) {
         LogPrintf("Error in Zelcash Miner: chainActive.Height() returned -1\n");
-        return;
+        return false;
     }
 
     //TODO some stuff for equihash_endblock, overlapping period
-    if (nHeight >= params.newalgo_startblock) {
+    unsigned int b = params.Getnewalgo_startblock();
+    if (nHeight >= b) {
         return true;
     }
 

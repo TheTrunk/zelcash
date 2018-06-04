@@ -51,8 +51,7 @@ GLOBAL sph_cubehash512_context  z_cubehash;
 GLOBAL sph_shavite512_context   z_shavite;
 GLOBAL sph_simd512_context      z_simd;
 GLOBAL sph_echo512_context      z_echo;
-#define fillz() do {
- \
+#define fillz() do { \
     sph_blake512_init(&z_blake); \
     sph_bmw512_init(&z_bmw); \
     sph_groestl512_init(&z_groestl); \
@@ -65,12 +64,12 @@ GLOBAL sph_echo512_context      z_echo;
     sph_simd512_init(&z_simd); \
     sph_echo512_init(&z_echo); \
 } while (0)
-#define ZBLAKE(memcpy(&ctx_blake, &z_blake, sizeof(z_blake)))
-#define ZBMW(memcpy(&ctx_bmw, &z_bmw, sizeof(z_bmw)))
-#define ZGROESTL(memcpy(&ctx_groestl, &z_groestl, sizeof(z_groestl)))
-#define ZJH(memcpy(&ctx_jh, &z_jh, sizeof(z_jh)))
-#define ZKECCAK(memcpy(&ctx_keccak, &z_keccak, sizeof(z_keccak)))
-#define ZSKEIN(memcpy(&ctx_skein, &z_skein, sizeof(z_skein)))
+#define ZBLAKE (memcpy(&ctx_blake, &z_blake, sizeof(z_blake)))
+#define ZBMW (memcpy(&ctx_bmw, &z_bmw, sizeof(z_bmw)))
+#define ZGROESTL (memcpy(&ctx_groestl, &z_groestl, sizeof(z_groestl)))
+#define ZJH (memcpy(&ctx_jh, &z_jh, sizeof(z_jh)))
+#define ZKECCAK (memcpy(&ctx_keccak, &z_keccak, sizeof(z_keccak)))
+#define ZSKEIN (memcpy(&ctx_skein, &z_skein, sizeof(z_skein)))
 
 /** A hasher class for Bitcoin's 256-bit hash (double SHA-256). */
 class CHash256 {
