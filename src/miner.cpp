@@ -895,8 +895,7 @@ void GenerateBitcoins(bool fGenerate, int nThreads)
 {
     static boost::thread_group* minerThreads = NULL;
     const CChainParams& chainparams = Params();
-    const CBlockIndex *pindex;
-    unsigned int nHeight = pindex->nHeight;
+    unsigned int nHeight = chainActive.Height();
     unsigned int c = chainparams.Getnewalgo_startblock();
     if (nThreads < 0)
         nThreads = GetNumCores();

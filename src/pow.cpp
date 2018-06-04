@@ -13,6 +13,7 @@
 #include "streams.h"
 #include "uint256.h"
 #include "util.h"
+#include "main.h"
 
 #include "sodium.h"
 
@@ -83,8 +84,7 @@ unsigned int CalculateNextWorkRequired(arith_uint256 bnAvg,
 
 bool CheckEquihashSolution(const CBlockHeader *pblock, const CChainParams& params)
 {
-    const CBlockIndex *pindex;
-    unsigned int nHeight = pindex->nHeight;
+    unsigned int nHeight = chainActive.Height();
     if (nHeight == -1) {
         LogPrintf("Error in Zelcash Miner: chainActive.Height() returned -1\n");
         return false;
