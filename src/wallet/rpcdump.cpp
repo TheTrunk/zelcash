@@ -427,10 +427,10 @@ UniValue z_exportwallet(const UniValue& params, bool fHelp)
     
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "z_exportwallet \"filename\"\n"
+            "z_exportwallet \"folder/filename\"\n"
             "\nExports all wallet keys, for taddr and zaddr, in a human-readable format.  Overwriting an existing file is not permitted.\n"
             "\nArguments:\n"
-            "1. \"filename\"    (string, required) The filename, saved in folder set by zelcashd -exportdir option\n"
+            "1. \"folder/filename\"    (string, required) The filename, saved in folder set by zelcashd -exportdir option or specified in input. Exportdir option is primary. If no folder is provided, filename will be saved in folder from which the command is executed.\n"
             "\nResult:\n"
             "\"path\"           (string) The full path of the destination file\n"
             "\nExamples:\n"
@@ -448,10 +448,10 @@ UniValue dumpwallet(const UniValue& params, bool fHelp)
 
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "dumpwallet \"filename\"\n"
+            "dumpwallet \"folder/filename\"\n"
             "\nDumps taddr wallet keys in a human-readable format.  Overwriting an existing file is not permitted.\n"
             "\nArguments:\n"
-            "1. \"filename\"    (string, required) The filename, saved in folder set by zelcashd -exportdir option\n"
+            "1. \"folder/filename\"    (string, required) The filename, saved in folder set by zelcashd -exportdir option or specified in input. Exportdir option is primary. If no folder is provided, filename will be saved in folder from which the command is executed.\n"
             "\nResult:\n"
             "\"path\"           (string) The full path of the destination file\n"
             "\nExamples:\n"
