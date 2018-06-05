@@ -187,7 +187,7 @@ public:
         consensus.nDigishieldMaxAdjustDown = 32; // 32% adjustment down
         consensus.nDigishieldMaxAdjustUp = 16; // 16% adjustment up
         consensus.nPowTargetSpacing = 2 * 60;
-        consensus.zawyLWMAHeight = 5100; //TODO
+        consensus.zawyLWMAHeight = 6350; //TODO
         consensus.nZawyLWMAAveragingWindow = 45;
         consensus.nZawyLWMAAdjustedWeight = 13632;
         pchMessageStart[0] = 0xfa;
