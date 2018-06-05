@@ -577,6 +577,7 @@ void static RavenMiner()
                 while (true)
                 {
                     hash = pblock->GetHash();
+                    solutionTargetChecks.increment();
                     if (UintToArith256(hash) <= hashTarget)
                     {
                     // Found a solution
@@ -655,6 +656,8 @@ void static BitcoinMiner()
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("zelcash-miner");
     const CChainParams& chainparams = Params();
+    unsigned int newAlgoHeight = chainparams.Getnewalgo_startblock();
+    LogPrint("pow", "Block height of algo swap: %s\n", newAlgoHeight);
 
 #ifdef ENABLE_WALLET
     // Each thread has its own key
@@ -852,6 +855,7 @@ void static BitcoinMiner()
                 }
 
                 // Check for stop or if block needs to be rebuilt
+                unsigned int nHeight = chainActive.Height();
                 boost::this_thread::interruption_point();
                 // Regtest mode doesn't require peers
                 if (vNodes.empty() && chainparams.MiningRequiresPeers())
@@ -862,6 +866,12 @@ void static BitcoinMiner()
                     break;
                 if (pindexPrev != chainActive.Tip())
                     break;
+                if (nHeight >= newAlgoHeight) {
+                LogPrint("pow", "Changing mining algorithm\n");
+                miningTimer.stop();
+                c.disconnect();
+                return;
+                }
 
                 // Update nNonce and nTime
                 pblock->nNonce = ArithToUint256(UintToArith256(pblock->nNonce) + 1);
@@ -896,7 +906,8 @@ void GenerateBitcoins(bool fGenerate, int nThreads)
     static boost::thread_group* minerThreads = NULL;
     const CChainParams& chainparams = Params();
     unsigned int nHeight = chainActive.Height();
-    unsigned int c = chainparams.Getnewalgo_startblock();
+    unsigned int newAlgoHeight = chainparams.Getnewalgo_startblock();
+    LogPrint("pow", "Block height of algo swap: %s\n", newAlgoHeight);
     if (nThreads < 0)
         nThreads = GetNumCores();
 
@@ -913,13 +924,13 @@ void GenerateBitcoins(bool fGenerate, int nThreads)
     minerThreads = new boost::thread_group();
     for (int i = 0; i < nThreads; i++) {
 #ifdef ENABLE_WALLET
-    if (nHeight < c) {
+    if (nHeight < newAlgoHeight) {
         minerThreads->create_thread(boost::bind(&BitcoinMiner, pwallet));
     } else {
         minerThreads->create_thread(boost::bind(&RavenMiner, pwallet));
     }
 #else
-    if (nHeight < c) {
+    if (nHeight < newAlgoHeight) {
         minerThreads->create_thread(&BitcoinMiner);
     } else {
         minerThreads->create_thread(&RavenMiner);
