@@ -95,7 +95,6 @@ public:
         consensus.nPowTargetSpacing = 2 * 60;
         consensus.zawyLWMAHeight = 100000; //TODO
         consensus.nZawyLWMAAveragingWindow = 60;
-        consensus.nZawyLWMAAdjustedWeight = 13632;
         /**
          * The message start string should be awesome! ⓩ❤
          */
@@ -189,7 +188,6 @@ public:
         consensus.nPowTargetSpacing = 2 * 60;
         consensus.zawyLWMAHeight = 6350; //TODO
         consensus.nZawyLWMAAveragingWindow = 60;
-        consensus.nZawyLWMAAdjustedWeight = 13632;
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0x1a;
         pchMessageStart[2] = 0xf9;
@@ -276,7 +274,6 @@ public:
         consensus.nPowTargetSpacing = 2 * 60;
         consensus.zawyLWMAHeight = 10; //TODO
         consensus.nZawyLWMAAveragingWindow = 60;
-        consensus.nZawyLWMAAdjustedWeight = 13632;
 
         pchMessageStart[0] = 0xaa;
         pchMessageStart[1] = 0xe8;

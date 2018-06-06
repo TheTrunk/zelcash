@@ -93,8 +93,8 @@ unsigned int LWMACalculateNextWorkRequired(const CBlockIndex* pindexLast, const 
     const int64_t FTL = 360;
     const int64_t T = params.nPowTargetSpacing;
     const int64_t N = params.nZawyLWMAAveragingWindow;
-    const int64_t k = params.nZawyLWMAAdjustedWeight;
-    const int height = pindexLast->nHeight + 1;
+    const int64_t k = N*(N+1)*T/2;
+    const int height = pindexLast->nHeight;
     assert(height > N);
 
     arith_uint256 sum_target;
@@ -104,7 +104,7 @@ unsigned int LWMACalculateNextWorkRequired(const CBlockIndex* pindexLast, const 
     for (int i = height - N+1; i <= height; i++) {
         const CBlockIndex* block = pindexLast->GetAncestor(i);
         const CBlockIndex* block_Prev = block->GetAncestor(i - 1);
-        int64_t solvetime = block->GetBlockTime() - block_Prev->GetBlockTime();
+        solvetime = block->GetBlockTime() - block_Prev->GetBlockTime();
         solvetime = std::max(-FTL, std::min(solvetime, 6*T));
 
         j++;
