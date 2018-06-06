@@ -73,6 +73,7 @@ public:
     unsigned int EquihashN() const { return nEquihashN; }
     unsigned int EquihashK() const { return nEquihashK; }
     unsigned int GetzawyLWMAHeight() const { return zawyLWMAHeight; }
+    unsigned int Getnewalgo_startblock() const { return newalgo_startblock; }
     std::string CurrencyUnits() const { return strCurrencyUnits; }
     /** Make miner stop after a block is found. In RPC, don't return until nGenProcLimit blocks are generated */
     bool MineBlocksOnDemand() const { return fMineBlocksOnDemand; }
@@ -103,6 +104,7 @@ protected:
     unsigned int nEquihashN = 0;
     unsigned int nEquihashK = 0;
     unsigned int zawyLWMAHeight = 0;
+    unsigned int newalgo_startblock = 0;
     std::vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
     std::string strNetworkID;
