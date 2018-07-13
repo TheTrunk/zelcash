@@ -1,6 +1,12 @@
 Zelcash Contributors
 ==================
 
+Tadeas Kmenta (9)
+Miles Manley (1)
+
+Zcash Contributors
+==================
+
 Jack Grigg (558)
 Simon Liu (286)
 Sean Bowe (193)

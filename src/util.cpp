@@ -446,7 +446,7 @@ boost::filesystem::path GetDefaultDataDir()
     namespace fs = boost::filesystem;
     // Windows < Vista: C:\Documents and Settings\Username\Application Data\Zelcash
     // Windows >= Vista: C:\Users\Username\AppData\Roaming\Zelcash
-    // Mac: ~/Library/Application Support/zelcash
+    // Mac: ~/Library/Application Support/Zelcash
     // Unix: ~/.zelcash
 #ifdef WIN32
     // Windows
@@ -462,7 +462,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     TryCreateDirectory(pathRet);
-    return pathRet / "zelcash";
+    return pathRet / "Zelcash";
 #else
     // Unix
     return pathRet / ".zelcash";
@@ -899,7 +899,7 @@ std::string LicenseInfo()
 {
     return "\n" +
            FormatParagraph(strprintf(_("Copyright (C) 2009-%i The Bitcoin Core Developers"), COPYRIGHT_YEAR)) + "\n" +
-           FormatParagraph(strprintf(_("Copyright (C) 2015-%i The Zelcash Developers"), COPYRIGHT_YEAR)) + "\n" +
+           FormatParagraph(strprintf(_("Copyright (C) 2015-%i The Zcash Developers"), COPYRIGHT_YEAR)) + "\n" +
            "\n" +
            FormatParagraph(_("This is experimental software.")) + "\n" +
            "\n" +

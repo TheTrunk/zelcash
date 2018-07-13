@@ -1,4 +1,4 @@
-// Copyright (c) 2017 The Zelcash developers
+// Copyright (c) 2017 The Zcash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -73,7 +73,7 @@ struct PaymentDisclosurePayload {
     uint8_t version;        // 0 = experimental, 1 = first production version, etc.
     uint256 esk;            // zelcash/NoteEncryption.cpp
     uint256 txid;           // primitives/transaction.h
-    uint64_t js;            // Index into CTransaction.vjoinsplit
+    size_t js;              // Index into CTransaction.vjoinsplit
     uint8_t n;              // Index into JSDescription fields of length ZC_NUM_JS_OUTPUTS
     libzelcash::PaymentAddress zaddr; // zelcash/Address.hpp
     std::string message;     // parameter to RPC call
