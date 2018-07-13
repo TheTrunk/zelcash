@@ -179,7 +179,7 @@ public:
         strNetworkID = "test";
         strCurrencyUnits = "TEL";
         consensus.fCoinbaseMustBeProtected = true;
-        consensus.nSubsidySlowStartInterval = 5000;
+        consensus.nSubsidySlowStartInterval = 0;
         consensus.nSubsidyHalvingInterval = 657850; // 2.5 years
         consensus.nMajorityEnforceBlockUpgrade = 51;
         consensus.nMajorityRejectBlockOutdated = 75;
@@ -190,7 +190,7 @@ public:
         consensus.nDigishieldMaxAdjustDown = 32; // 32% adjustment down
         consensus.nDigishieldMaxAdjustUp = 16; // 16% adjustment up
         consensus.nPowTargetSpacing = 2 * 60;
-        consensus.zawyLWMAHeight = 500;
+        consensus.zawyLWMAHeight = 300;
         consensus.nZawyLWMAAveragingWindow = 60;
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0x1a;
@@ -202,8 +202,8 @@ public:
         nPruneAfterHeight = 1000;
         eh_epoch_1 = eh200_9;
         eh_epoch_2 = eh144_5;
-        eh_epoch_1_endblock = 610;
-        eh_epoch_2_startblock = 600;
+        eh_epoch_1_endblock = 410;
+        eh_epoch_2_startblock = 400;
 
         genesis = CreateGenesisBlock(
             1521043405,
