@@ -179,7 +179,7 @@ public:
         strNetworkID = "test";
         strCurrencyUnits = "TEL";
         consensus.fCoinbaseMustBeProtected = true;
-        consensus.nSubsidySlowStartInterval = 0;
+        consensus.nSubsidySlowStartInterval = 5000;
         consensus.nSubsidyHalvingInterval = 657850; // 2.5 years
         consensus.nMajorityEnforceBlockUpgrade = 51;
         consensus.nMajorityRejectBlockOutdated = 75;
