@@ -257,7 +257,7 @@ public:
 static CTestNetParams testNetParams;
 
 /**
- * Regression test TODO
+ * Regression test
  */
 class CRegTestParams : public CChainParams {
 public:
@@ -276,7 +276,7 @@ public:
         consensus.nDigishieldMaxAdjustDown = 0; // Turn off adjustment down
         consensus.nDigishieldMaxAdjustUp = 0; // Turn off adjustment up
         consensus.nPowTargetSpacing = 2 * 60;
-        consensus.zawyLWMAHeight = 1;
+        consensus.zawyLWMAHeight = 120;
         consensus.nZawyLWMAAveragingWindow = 60;
 
         pchMessageStart[0] = 0xaa;
@@ -292,13 +292,13 @@ public:
         eh_epoch_2_startblock = 1;
 
         genesis = CreateGenesisBlock(
-            1296688602,
-            uint256S("0000000000000000000000000000000000000000000000000000000000000016"),
-            ParseHex("02853a9dd062e2356909a0d2b9f0e4873dbf092edd3f00eea317e21222d1f2c414b926ee"),
+            1538932762,
+            uint256S("000000000000000000000000000000000000000000000000000000000000001e"),
+            ParseHex("05c845f08b1ea34e034059eafb95e511a91919f9215f72e28d533124d74ff9353e45bbea"),
             0x200f0f0f, 4, 0);
 
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x01998760a88dc2b5715f69d2f18c1d90e0b604612242d9099eaff3048dd1e0ce"));
+        assert(consensus.hashGenesisBlock == uint256S("0x02827f3f7728bf29111bde8e29204718e6969b8a86084b64c34cff1770beadf1"));
         assert(genesis.hashMerkleRoot == uint256S("0x94c7aed6b2c67f1718006684bfc3b92081a2f19d59075691b189160d6f3aa13a"));
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
