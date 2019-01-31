@@ -469,6 +469,8 @@ qa/pull-tester/test.*/*
 /doc/doxygen/
 
 libzcashconsensus.pc
+libzelcashconsensus.pc
+wallet-utility
 
 contrib/debian/files
 contrib/debian/substvars
